@@ -1,10 +1,10 @@
 #! bin/bash
 
-#bump-version.sh
+#tag-version.sh
 #by Julian Sangillo
-#Use: bump-version {prod-branch} {uat-branch} {dev-branch}
+#Use: tag-version {prod-branch} {uat-branch} {dev-branch}
 #Output: {new-revision}
-#Bumps the version based on commit HEAD and the latest tag. Versions are in the format
+#Tags the version based on latest commit and last tagged version. Versions are in the format
 #<major>.<minor>.<build>[.<pre-release-tag>]. A commit marked with #major will increment
 #the major revision. A commit marked with #minor will increment the minor revision. A
 #commit with no mark will increment the build number. The optional pre-release-tag is a
@@ -20,7 +20,7 @@
 #Error Codes:
 #- 32: A 'latest' tag exists without a corresponding annotated tag marking the last known version on the same commit.
 #- 64: A 'latest' tag doesn't exist when pulling commits into UAT or production.
-#- 128: Version bump is being attempted on neither the production, UAT, or DEV branches. Branch is unknown.
+#- 128: Tag version is being attempted on neither the production, UAT, or DEV branches. Branch is unknown.
 
 PROD_BRANCH="$1";
 UAT_BRANCH="$2";
@@ -248,7 +248,7 @@ REVISION="$(getLatestRevision)";
 outLog "Latest Revision: $REVISION";
 
 if [ -z "$REVISION" ]; then
-	outLog "Version bump failed! Version must exist at :latest";
+	outLog "Tag version failed! Version must exist at :latest";
 	exit 32;
 fi
 
@@ -272,7 +272,7 @@ elif [ "$BRANCH" = "$UAT_BRANCH" ]; then
 	IS_PRERELEASE='true';
 
 	if [ -z "$NEW_REVISION" ]; then
-                outLog "Version bump failed! :latest must exist when pulling into '$UAT_BRANCH'";
+                outLog "Tag version failed! :latest must exist when pulling into '$UAT_BRANCH'";
                 exit 64;
         fi
 elif [ "$BRANCH" = "$PROD_BRANCH" ]; then
@@ -281,11 +281,11 @@ elif [ "$BRANCH" = "$PROD_BRANCH" ]; then
 	IS_PRERELEASE='false';
 
 	if [ -z "$NEW_REVISION" ]; then
-                outLog "Version bump failed! :latest must exist when pulling into '$PROD_BRANCH'";
+                outLog "Tag version failed! :latest must exist when pulling into '$PROD_BRANCH'";
                 exit 64;
         fi
 else
-	outLog "Version bump failed! Unknown branch '$BRANCH'";
+	outLog "Tag version failed! Unknown branch '$BRANCH'";
 	exit 128;
 fi
 outLog "New Revision: $NEW_REVISION";
@@ -293,7 +293,7 @@ outLog "New Revision: $NEW_REVISION";
 tagRelease $REVISION_TYPE $NEW_REVISION;
 pushToOrigin;
 
-outLog "Version bump complete.";
+outLog "Tag version complete.";
 outLog "Output: $NEW_REVISION";
 echo "::set-output name=revision::$NEW_REVISION";
 echo "::set-output name=is-prerelease::$IS_PRERELEASE"

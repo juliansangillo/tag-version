@@ -27,5 +27,5 @@ runs:
   using: composite
   steps:
     - id: bump-version
-      run: bash $GITHUB_ACTION_PATH/src/bump-version.sh ${{ inputs.production-branch }} ${{ inputs.uat-branch }} ${{ inputs.dev-branch }}
+      run: bash $GITHUB_ACTION_PATH/src/tag-version.sh ${{ inputs.production-branch }} ${{ inputs.uat-branch }} ${{ inputs.dev-branch }}
       shell: bash
