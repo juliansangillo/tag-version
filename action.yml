@@ -1,9 +1,5 @@
-name: 'bump-version'
-description: 'Bumps the version based on latest commit. Versions are in the format <major>.<minor>.<build>[.<pre-release-tag>]. A commit marked with #major will increment
-the major revision. A commit marked with #minor will increment the minor revision. A commit with no mark will increment the build number. The optional pre-release-tag is a
-string of capitalized ASCII characters marking the version as a non-production branch (example: 1.0.0.DEVELOP). New tags starting in the dev branch get a CHANGELOG generated
-and a README with updated version. The revision string and is-prelease boolean is returned. !Impotant Note! The checkout action must be set to fetch the whole git history in 
-order for a proper CHANGELOG to be generated. Set "fetch-depth: 0" in checkout action.'
+name: 'tag-version'
+description: 'Tags a new version based on latest commit and previously tagged version.'
 inputs:
   production-branch:
     description: 'The branch to use for stable releases in production. Default is master'
