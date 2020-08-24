@@ -1,7 +1,7 @@
 name: 'tag-version'
 description: 'Tags a new version based on latest commit and previously tagged version.'
-icon: tag
-color: purple
+icon: 'tag'
+color: 'purple'
 inputs:
   production-branch:
     description: 'The branch to use for stable releases in production. Default is master'
