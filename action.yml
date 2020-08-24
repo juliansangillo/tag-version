@@ -1,0 +1,32 @@
+name: 'bump-version'
+description: 'Bumps the version based on latest commit. Versions are in the format <major>.<minor>.<build>[.<pre-release-tag>]. A commit marked with #major will increment
+the major revision. A commit marked with #minor will increment the minor revision. A commit with no mark will increment the build number. The optional pre-release-tag is a
+string of capitalized ASCII characters marking the version as a non-production branch (example: 1.0.0.DEVELOP). New tags starting in the dev branch get a CHANGELOG generated
+and a README with updated version. The revision string and is-prelease boolean is returned. !Impotant Note! The checkout action must be set to fetch the whole git history in 
+order for a proper CHANGELOG to be generated. Set "fetch-depth: 0" in checkout action.'
+inputs:
+  production-branch:
+    description: 'The branch to use for stable releases in production. Default is master'
+    required: false
+    default: master
+  uat-branch:
+    description: 'The branch to use for uat deployments. Default is test'
+    required: false
+    default: test
+  dev-branch:
+    description: 'The branch to use for dev deployments. Default is develop'
+    required: false
+    default: develop
+outputs:
+  revision:
+    description: 'The new version that was created and tagged in the format of <major>.<minor>.<build>[.<pre-release-tag>]'
+    value: ${{ steps.bump-version.outputs.revision }}
+  is-prerelease:
+    description: 'Is true if this is a release into a non-production environment and indicates the build may be unstable. Returns false otherwise.'
+    value: ${{ steps.bump-version.outputs.is-prerelease }}
+runs:
+  using: composite
+  steps:
+    - id: bump-version
+      run: bash $GITHUB_ACTION_PATH/src/bump-version.sh ${{ inputs.production-branch }} ${{ inputs.uat-branch }} ${{ inputs.dev-branch }}
+      shell: bash
