@@ -1,5 +1,5 @@
-# bump-version
-Bumps the version of a project based on latest commit and automatically creates a tag for it. Versions are in the format "\<major\>.\<minor\>.\<build\>[.\<pre-release-tag\>]".  
+# tag-version
+Tags a new version based on latest commit and previously tagged version. Versions are in the format "\<major\>.\<minor\>.\<build\>[.\<pre-release-tag\>]".  
 A commit marked with #major will increment the major revision.  
 `git commit -m "Add new major feature #major"`  
 This will increment 1.5.3 to 2.0.0.  
