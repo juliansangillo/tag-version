@@ -24,7 +24,12 @@ uat-branch: The branch to use for uat deployments. Default is test
 dev-branch: The branch to use for dev deployments. Default is develop
 ## Ouputs
 revision: The new version that was created and tagged in the format of \<major\>.\<minor\>.\<build\>[.\<pre-release-tag\>]  
-is-prerelease: Is true if this is a release into a non-production environment and indicates the build may be unstable. Returns false otherwise.  
+is-prerelease: Is true if this is a release into a non-production environment and indicates the build may be unstable. Returns false otherwise.
+## Error Codes
+- 32: A 'latest' tag exists without a corresponding annotated tag marking the last known version on the same commit.  
+- 64: A 'latest' tag doesn't exist when pulling commits into UAT or production.  
+- 128: Version bump is being attempted on neither the production, UAT, or DEV branches. Branch is unknown.
+## Example
 ```
 - name: Version  
   id: version  
