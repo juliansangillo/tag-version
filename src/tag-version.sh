@@ -36,7 +36,15 @@ getLatestRevision() {
 }
 
 getRevisionType() {
-	local MESSAGE="$(git show -s --format=%s HEAD)";
+    local BRANCH="$1";
+
+    if [ "$BRANCH" = "$DEV_BRANCH" ]; then
+        local MESSAGE="$(git show -s --format=%s HEAD)";
+    elif [ "$BRANCH" = "$TEST_BRANCH" ]; then
+        local MESSAGE="$(git show -s --format=%s HEAD~1)";
+    else
+        local MESSAGE="$(git show -s --format=%s HEAD~2)";
+    fi
 
 	outLog "Getting revision type from commit message ...";
 	outLog "(major, minor, build)";
@@ -109,7 +117,7 @@ pullRevisionIntoTest() {
 	outLog "Old Version: $OLD_VERSION";
 
 	split '.' $OLD_VERSION;
-	return_arr[3]="${test_BRANCH^^}";
+	return_arr[3]="${TEST_BRANCH^^}";
 
 	echo "$(join . ${return_arr[@]})"
 }
