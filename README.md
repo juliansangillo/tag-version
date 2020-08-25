@@ -11,7 +11,7 @@ Provides automated versioning of your commits using git tags each time your CI/C
 * 1.0.3.TEST
 * 2.1.5.DEVELOP
 # Usage
-See [action.yml](link)
+See [action.yml](https://github.com/juliansangillo/tag-version/blob/master/action.yml)
 ## Pushing new build
 Tag-Version will always use the latest commit that was pushed to determine how to version this new release, no matter how many commits were made locally. A standard commit message will increment your version's build number.
 ### Commit
@@ -56,7 +56,8 @@ For commits to be picked up for the CHANGELOG, they must adhere to one of the fo
 * Remove *
 * Replace *
 * Revert *
-* Fix *<br>  
+* Fix *
+### 
 Capitalization is irrelevant here ("Add", "add", and "ADD" are all interpreted the same). This also does not count Jira keys, #minor, or #major flags. These are ignored, so having a Jira key or one of the flags at the beginning of the message won't interfere with the CHANGELOG. The following examples are all valid commits for the CHANGELOG.
 ### Examples
 * Fix null pointer exception
