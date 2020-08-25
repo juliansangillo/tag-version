@@ -1,5 +1,5 @@
 name: 'tag-version'
-description: 'Tags a new version based on latest commit and previously tagged version.'
+description: 'Provides automated versioning of your commits using git tags each time your CI/CD workflow runs.'
 branding:
   icon: 'tag'
   color: 'purple'
@@ -8,8 +8,8 @@ inputs:
     description: 'The branch to use for stable releases in production. Default is master'
     required: false
     default: master
-  uat-branch:
-    description: 'The branch to use for uat deployments. Default is test'
+  test-branch:
+    description: 'The branch to use for test deployments. Default is test'
     required: false
     default: test
   dev-branch:
