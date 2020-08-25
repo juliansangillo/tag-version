@@ -19,13 +19,13 @@ inputs:
 outputs:
   revision:
     description: 'The new version that was created and tagged in the format of <major>.<minor>.<build>[.<pre-release-tag>]'
-    value: ${{ steps.bump-version.outputs.revision }}
+    value: ${{ steps.tag-version.outputs.revision }}
   is-prerelease:
     description: 'Is true if this is a release into a non-production environment and indicates the build may be unstable. Returns false otherwise.'
-    value: ${{ steps.bump-version.outputs.is-prerelease }}
+    value: ${{ steps.tag-version.outputs.is-prerelease }}
 runs:
   using: composite
   steps:
-    - id: bump-version
-      run: bash $GITHUB_ACTION_PATH/src/tag-version.sh ${{ inputs.production-branch }} ${{ inputs.uat-branch }} ${{ inputs.dev-branch }}
+    - id: tag-version
+      run: bash $GITHUB_ACTION_PATH/src/tag-version.sh ${{ inputs.production-branch }} ${{ inputs.test-branch }} ${{ inputs.dev-branch }}
       shell: bash
