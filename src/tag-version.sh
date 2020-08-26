@@ -177,7 +177,7 @@ generateChangeLog() {
 	outLog "Changes logged."
 
 	if [ "$REVISION_TYPE" != "major" ] && [ -f $CHANGELOG ]; then
-		tail -n +3 $CHANGELOG >> $TEMP;
+		tail -n +2 $CHANGELOG >> $TEMP;
 	fi
 
 	mv -f $TEMP $CHANGELOG;
